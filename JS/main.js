@@ -5,9 +5,9 @@ import { propiedades } from "./dataBase.js";
 
 function cityFilter(city) {
     
-return propiedades.filter((propiedad) => propiedad.direccion.includes(city))
+return propiedades.filter((propiedad) => propiedad.direccion.toLocaleLowerCase().includes(city))
 }
-console.log(cityFilter('Madrid'));
+console.log(cityFilter('madrid'));
 
 // 2. Obtener un nuevo array con los nombres de los objetos.
 
@@ -154,10 +154,36 @@ console.log(filtrarFecha);
 
 // 19. Obtener un nuevo array con el promedio de los metros cuadrados por ciudad de todos los objetos.
 
+let sumasPorCiudad = {};
+let conteosPorCiudad = {};
+
+propiedades.forEach(propiedad => {
+    let ciudad = propiedad.direccion.split(', ')[1]; 
+    if (!sumasPorCiudad[ciudad]) {
+        sumasPorCiudad[ciudad] = 0;
+        conteosPorCiudad[ciudad] = 0;
+    }
+    sumasPorCiudad[ciudad] += propiedad.metrosCuadrados;
+    conteosPorCiudad[ciudad]++;
+});
+
+let promediosPorCiudad = {};
+for (let ciudad in sumasPorCiudad) {
+    promediosPorCiudad[ciudad] = sumasPorCiudad[ciudad] / conteosPorCiudad[ciudad];
+}
+
+let resultado = [];
+for (let ciudad in promediosPorCiudad) {
+    resultado.push({
+        ciudad: ciudad,
+        promedioMetrosCuadrados: promediosPorCiudad[ciudad]
+    });
+}
+
+console.log(resultado);
 
 
-
-// 20. Ordenar los objetos por nombre de forma descendente.
+// // 20. Ordenar los objetos por nombre de forma descendente.
 
 const nombresOrdenados = propiedades.sort((a, b) => b - a);
 console.log(nombresOrdenados);
