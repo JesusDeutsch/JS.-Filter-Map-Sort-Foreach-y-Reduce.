@@ -183,7 +183,7 @@ for (let ciudad in promediosPorCiudad) {
 console.log(resultado);
 
 
-// // 20. Ordenar los objetos por nombre de forma descendente.
+// 20. Ordenar los objetos por nombre de forma descendente.
 
 const nombresOrdenados = propiedades.sort((a, b) => b - a);
 console.log(nombresOrdenados);
